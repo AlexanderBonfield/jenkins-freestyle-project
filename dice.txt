@@ -1,0 +1,15 @@
+import random
+
+def dice():
+    return random.randint(1, 6)
+
+
+
+
+import Dice_roll
+
+x = Dice_roll.dice()
+y = Dice_roll.dice()
+
+roll = x + y
+print(f"You rolled {roll}")

@@ -1,0 +1,19 @@
+class Student:
+
+    def __init__(self, name, age, subject):
+        self.name = name
+        self.age = age
+        self.subject = subject
+
+    def avtest(self, score1, score2, score3):
+        aver = (score1 + score2 + score3)/3
+        return aver
+
+
+John = Student("John", "20", "Pyhsics")
+Michael = Student("Michael", "21", "Chemistry")
+
+print(getattr(John, "age"))
+
+av_score = John.avtest(37,56,74)
+print(av_score)

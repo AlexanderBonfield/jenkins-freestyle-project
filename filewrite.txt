@@ -1,0 +1,28 @@
+file = open("teams1.txt", "r+")
+file.write("New E Patriots \n")
+file.write("cin bengals \n")
+file.write("KC chiefs \n")
+file.write("LA Rams \n")
+file.write("Denver Broncos \n")
+
+file.seek(0)
+
+lines = file.readlines()
+
+line1 = lines[0]
+line4 = lines[3]
+print(line1, line4)
+
+
+lines[0] = "a new line \n"
+
+file.seek(0)
+
+file.writelines(lines)
+
+n = len(lines)
+
+
+for i in range(n):
+    print(lines[i])
+

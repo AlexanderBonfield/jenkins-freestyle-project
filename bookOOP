@@ -1,0 +1,84 @@
+from flask import Flask
+
+app = Flask(__name__)
+
+
+class Book():
+    isbn_list = []
+    author_list = []
+    books = []
+    def __init__(self, title, pages, isbn, genre, author):
+        self.title = title
+        self.pages = pages
+        self.isbn = isbn
+        self.genre = genre
+        self.author = author
+        self.isbn_library(isbn)
+        self.author_library(author)
+        self.book_list(self)
+
+    def book_list(self, title):
+        Book.books.append(title)
+
+
+
+    def isbn_library(self, isbn):
+        Book.isbn_list.append(isbn)
+
+    def author_library(self, author):
+        Book.author_list.append(author)
+
+
+    @staticmethod
+    def valid_isbn(isbn):
+        if isbn in Book.isbn_list:
+            print("This is a valid ISBN")
+        else:
+            print("This is not a valid ISBN")
+
+
+    @staticmethod
+    def search(author):
+        for idx, record in enumerate(Book.author_list):
+            if record == author:
+                book = Book.find_titles(idx)
+                if book:
+                    print(f"Books by {author}:")
+                    for title in book:
+                        print(title)
+                else:
+                    print(f"No books found for {author}")
+
+    @staticmethod
+    def find_titles(author_idx):
+        books_by_author = []
+        if author_idx < len(Book.author_list):
+            author_to_find = Book.author_list[author_idx]
+            for book in Book.books:
+                if book.author == author_to_find:
+                    books_by_author.append(book.title)
+        return books_by_author
+
+
+Book("The dags", "230", "12233423423", "fantasy", "Mclusky")
+Book("The waters", "444", "043209833939", "Horror", "Teller")
+Book("Jacob", "433", "0934580394", "Romance", "Teller")
+Book.valid_isbn("12233423423")
+Book.search("Teller")
+
+@app.route('/')
+
+def landing():
+    return "Would you like to check an ISBN or find an author?"
+
+# Hey there Adam, currently getting a type error
+# when I try to enter this author route in the URL.
+@app.route('/books/Teller')
+
+def books_by(author):
+    books = Book.search(author)
+    return f"Books by {author}: {', '.join(books)}"
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
